@@ -46,7 +46,7 @@ public class FinchVideo {
         public static final Uri CONTENT_URI = VIDEOS_URI;
 
         /**
-         * The MIME type of {@link #CONTENT_URI} providing a directory of notes.
+         * The MIME type of {@link #CONTENT_URI} providing a directory of videos.
          */
         public static final String CONTENT_TYPE =
                 "vnd.android.cursor.dir/vnd.finch.video";
@@ -101,7 +101,7 @@ public class FinchVideo {
         public static final Uri CONTENT_URI = VIDEOS_URI;
 
         /**
-         * The MIME type of {@link #CONTENT_URI} providing a directory of notes.
+         * The MIME type of {@link #CONTENT_URI} providing a directory of videos.
          */
         public static final String CONTENT_TYPE =
                 "vnd.android.cursor.dir/vnd.finch.video";
