@@ -134,7 +134,7 @@ public class SimpleFinchVideoContentProvider extends ContentProvider {
                 // query the database for all videos
                 c = mDb.query(VIDEO_TABLE_NAME, projection,
                         where, whereArgs,
-                        null, null, sortOrder);
+                        null, null, orderBy);
 
                 c.setNotificationUri(getContext().getContentResolver(),
                         FinchVideo.SimpleVideos.CONTENT_URI);
@@ -146,7 +146,7 @@ public class SimpleFinchVideoContentProvider extends ContentProvider {
                         BaseColumns._ID + " = " + videoID +
                                 (!TextUtils.isEmpty(where) ?
                                         " AND (" + where + ')' : ""),
-                        whereArgs, null, null, sortOrder);
+                        whereArgs, null, null, orderBy);
                 c.setNotificationUri(getContext().getContentResolver(),
                         FinchVideo.SimpleVideos.CONTENT_URI);
                 break;
