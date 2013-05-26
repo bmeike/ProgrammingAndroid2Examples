@@ -206,12 +206,12 @@ public class SimpleFinchVideoContentProvider extends ContentProvider {
         // Make sure that the fields are all set
         if (!values.containsKey(FinchVideo.SimpleVideos.TITLE_NAME)) {
             Resources r = Resources.getSystem();
-            values.put(FinchVideo.SimpleVideos.URI_NAME,
+            values.put(FinchVideo.SimpleVideos.TITLE_NAME,
                     r.getString(android.R.string.untitled));
         }
 
         if (!values.containsKey(FinchVideo.SimpleVideos.DESCRIPTION_NAME)) {
-            values.put(FinchVideo.SimpleVideos.URI_NAME, "");
+            values.put(FinchVideo.SimpleVideos.DESCRIPTION_NAME, "");
         }
 
         if (!values.containsKey(FinchVideo.SimpleVideos.URI_NAME)) {
@@ -238,16 +238,13 @@ public class SimpleFinchVideoContentProvider extends ContentProvider {
                                 + (!TextUtils.isEmpty(where) ?
                                 " AND (" + where + ')' : ""),
                         whereArgs);
-
-                // the call to notify the uri after deletion is explicit
-                getContext().getContentResolver().notifyChange(uri, null);
-
                 break;
             default:
                 throw new IllegalArgumentException("unknown video element: " +
                         uri);
         }
 
+        getContext().getContentResolver().notifyChange(uri, null);
         return affected;
     }
 
@@ -255,17 +252,16 @@ public class SimpleFinchVideoContentProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String where,
                       String[] whereArgs)
     {
-        SQLiteDatabase db = mOpenDbHelper.getWritableDatabase();
         int affected;
         switch (sUriMatcher.match(uri)) {
             case VIDEOS:
-                affected = db.update(VIDEO_TABLE_NAME, values,
+                affected = mDb.update(VIDEO_TABLE_NAME, values,
                         where, whereArgs);
                 break;
 
             case VIDEO_ID:
                 String videoId = uri.getPathSegments().get(1);
-                affected = db.update(VIDEO_TABLE_NAME, values,
+                affected = mDb.update(VIDEO_TABLE_NAME, values,
                         BaseColumns._ID + "=" + videoId
                                 + (!TextUtils.isEmpty(where) ?
                                 " AND (" + where + ')' : ""),
